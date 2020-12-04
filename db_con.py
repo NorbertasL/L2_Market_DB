@@ -1,6 +1,6 @@
 import sqlite3
-import calendar;
-import time;
+import calendar
+import time
 
 connection = sqlite3.connect("L2RebornMarket.db")
 cursor = connection.cursor()

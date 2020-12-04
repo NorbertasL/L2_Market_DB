@@ -5,11 +5,11 @@ from tkinter import ttk
 import db_con
 
 window = tk.Tk("L2Reborn")
-window.geometry("1200x400")
+window.title("L2Reborn Market Data")
+window.geometry("1100x400")
 
 
 def addNewItem(name, itemId=-1):
-    # print("Name:", name, " id:", itemId)
     db_con.addNewItem(name, itemId)
 
 
@@ -73,7 +73,7 @@ add_menu.add_command(label="Item List", command=openItemNameListWindow)
 # New item entry widgets
 itemNameText = tk.StringVar()
 itemNameLabel = tk.Label(window, text="Name:", font=('bold', 14))
-itemNameLabel.grid(row=0, column=0, sticky='W')
+itemNameLabel.grid(row=0, column=0, sticky='W', padx=(50, 0))
 itemNameEntry = tk.Entry(window, textvariable=itemNameText)
 itemNameEntry.grid(row=0, column=1, sticky='W', padx=20)
 
@@ -84,14 +84,14 @@ seenAsEntry = tk.Entry(window, textvariable=seenAsText)
 seenAsEntry.grid(row=0, column=3, sticky="W", padx=20)
 
 locationText = tk.StringVar(value="Giran")
-locationLabel = tk.Label(window, text="Loc:", font=('bold', 14))
-locationLabel.grid(row=0, column=4, sticky="W")
+locationLabel = tk.Label(window, text="Loc:", font=('bold', 14), )
+locationLabel.grid(row=0, column=4, sticky="W", )
 locationEntry = tk.Entry(window, textvariable=locationText)
 locationEntry.grid(row=0, column=5, sticky="W")
 
 priceNameText = tk.IntVar(value=-1)
 priceNameLabel = tk.Label(window, text="Price:", font=('bold', 14))
-priceNameLabel.grid(row=1, column=0, sticky='W')
+priceNameLabel.grid(row=1, column=0, sticky='W', padx=(50, 0))
 priceNameEntry = tk.Entry(window, textvariable=priceNameText)
 priceNameEntry.grid(row=1, column=1, sticky='W', padx=20)
 
@@ -117,9 +117,11 @@ processLabel.grid(row=4, column=2, columnspan=2)
 
 # Tree view
 myTree = ttk.Treeview(window)
+
 # Defining Columns
 myTree['columns'] = ("Name", "Seen As", "Price", "Quantity", "Date", "Location", "Person")
-# Formating columns
+
+# Formatting columns
 myTree.column("#0", width=0, stretch="no")
 myTree.column("Name", anchor="w")
 myTree.column("Seen As", width=60, anchor="w")
@@ -139,7 +141,7 @@ myTree.heading("Date", text="Date")
 myTree.heading("Location", text="Location")
 myTree.heading("Person", text="Person")
 
-myTree.grid(row=5, column=0, columnspan=6)
+myTree.grid(row=5, column=0, columnspan=6, padx=(20, 0))
 
 
 def updateList():
