@@ -8,17 +8,21 @@ def on_press(key):
 def on_release(key):
     print('{0} release'.format(
         key))
-    if key == Key.esc:
-        # Stop listener
-        return False
 
-# Collect events until released
-def listener():
-    with Listener(
-            on_press=on_press,
-            on_release=on_release) as listener:
-        listener.join()
-def stopListener():
-    Listener.stop
+class KeyListener:
+    listener = None
+
+    def start(self):
+        self.listener = Listener(on_press=on_press, on_release=on_release, suppress=True)
+        self.listener.start()
+        return self
+
+    def stop(self):
+        print("Stopping key listener:", self.listener)
+        if self.listener is not None:
+            self.listener.stop()
+            self.listener = None
+
+
 
 
