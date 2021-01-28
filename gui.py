@@ -3,6 +3,7 @@ import tkinter as tk
 from datetime import datetime
 from tkinter import ttk
 import db_con
+import keyboard_helper
 
 window = tk.Tk("L2Reborn")
 window.title("L2Reborn Market Data")
@@ -158,3 +159,4 @@ def updateList():
 
 updateList()
 window.mainloop()
+
