@@ -158,5 +158,8 @@ def updateList():
 
 
 updateList()
-window.mainloop()
+keyboard_helper.listener()
+while True:
+    window.update_idletasks()
+    window.update()
 
