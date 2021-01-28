@@ -9,6 +9,9 @@ window = tk.Tk("L2Reborn")
 window.title("L2Reborn Market Data")
 window.geometry("1100x400")
 
+keyListener = keyboard_helper.KeyListener().start()
+exitApp = False
+
 
 def addNewItem(name, itemId=-1):
     db_con.addNewItem(name, itemId)
@@ -16,6 +19,8 @@ def addNewItem(name, itemId=-1):
 
 # Using this to time click interval to prevent spam clicking
 lastTime = None
+
+
 def addNewPrice(name, seenAs, price, loc, quan, person):
     timeNow = time.time()
     global lastTime
@@ -152,14 +157,21 @@ def updateList():
     count = 0
     for record in data:
         myTree.insert(parent='', index='end', iid=count, text='', values=(record[0], record[1], record[2], record[3],
-                                                                          datetime.fromtimestamp(int(record[4])), record[5],
+                                                                          datetime.fromtimestamp(int(record[4])),
+                                                                          record[5],
                                                                           record[6]))
         count += 1
 
 
+def onClose():
+    global keyListener
+    global exitApp
+    keyListener.stop()
+    exitApp = True
+
+
+window.protocol("WM_DELETE_WINDOW", onClose)
 updateList()
-keyboard_helper.listener()
-while True:
+while not exitApp:
     window.update_idletasks()
     window.update()
-
