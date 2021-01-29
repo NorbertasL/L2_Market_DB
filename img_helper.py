@@ -4,28 +4,46 @@ from PIL import ImageGrab
 import cv2
 import numpy as np
 import pytesseract
+from enum import Enum
+
 
 class ImageHelper:
     itemImage = None
     nameImage = None
 
+    # Grab the image of the name tag
     def getTargetNameImg(self):
-        img = ImageGrab.grab(bbox=(100, 10, 400, 780))
-        img_np = np.array(img)
-        return cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
+        img_np = np.array(ImageGrab.grab(bbox=(100, 10, 400, 780)))
+        self.nameImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
+        return self.nameImage
 
+    # Grab the image of the item hovered by the mouse
     def getItemInfoImg(self, point):
-        print(point[0], " ", point[1])
         # So tha grap bbox par are X , Y , X+W, Y+H, what genius designed this?
         # Stupides par i have ever seen for a image capturing
         img_np = np.array(ImageGrab.grab(bbox=(point[0], point[1], point[0] + 500, point[1] + 500)))
-        return cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
+        self.itemImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
+        return self.itemImage
 
+    def showImage(self, ImageRef):
+        img = None
+        # using enum here for future expansion.IFs will prob be replaced by switches too
+        if ImageRef == ImageRef.ITEM:
+            img = self.itemImage
+        elif ImageRef == ImageRef.NAME:
+            img = self.nameImage
 
-    def showImage(self, img):
-        cv2.imshow('test', img)
+        cv2.imshow(ImageRef.value + ' test', img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    class ImageRef(Enum):
+        ITEM = "ITEM"
+        NAME = "NAME"
 
-    #showImage(getItemInfoImg(win32gui.GetCursorPos()))
+
+# TEST
+ih = ImageHelper()
+ih.getTargetNameImg()
+ih.showImage(ImageHelper.ImageRef.NAME)
+
