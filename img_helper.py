@@ -18,9 +18,10 @@ class ImageHelper:
         return self.nameImage
 
     # Grab the image of the item hovered by the mouse
-    def getItemInfoImg(self, point):
+    def getItemInfoImg(self):
         # So tha grap bbox par are X , Y , X+W, Y+H, what genius designed this?
         # Stupides par i have ever seen for a image capturing
+        point = win32gui.GetCursorPos()
         img_np = np.array(ImageGrab.grab(bbox=(point[0], point[1], point[0] + 500, point[1] + 500)))
         self.itemImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
         return self.itemImage
@@ -44,6 +45,6 @@ class ImageHelper:
 
 # TEST
 ih = ImageHelper()
-ih.getTargetNameImg()
-ih.showImage(ImageHelper.ImageRef.NAME)
+ih.getItemInfoImg()
+ih.showImage(ImageHelper.ImageRef.ITEM)
 
