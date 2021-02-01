@@ -3,15 +3,15 @@ import tkinter as tk
 from datetime import datetime
 from tkinter import ttk
 import db_con
-import keyboard_helper
+from keyboard_helper import KeyListener
+
 
 window = tk.Tk("L2Reborn")
 window.title("L2Reborn Market Data")
 window.geometry("1100x400")
 
-keyListener = keyboard_helper.KeyListener().start()
+keyListener = KeyListener().start()
 exitApp = False
-
 
 def addNewItem(name, itemId=-1):
     db_con.addNewItem(name, itemId)
