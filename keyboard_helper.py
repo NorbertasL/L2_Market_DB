@@ -1,13 +1,21 @@
 #https://pythonhosted.org/pynput/keyboard.html
-from pynput.keyboard import Key, Listener
+from pynput.keyboard import Key, Listener, KeyCode
 
-def on_press(key):
-    print('{0} pressed'.format(
-        key))
+import img_helper
+
 
 def on_release(key):
     print('{0} release'.format(
         key))
+
+
+def on_press(key):
+    print('{0} pressed'.format(key))
+
+    first, second = (img_helper.getText(True))
+    print(first)
+    #print(second)
+
 
 class KeyListener:
     listener = None
