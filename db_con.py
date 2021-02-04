@@ -1,6 +1,7 @@
 import sqlite3
 import calendar
 import time
+import CONSTANTS
 
 connection = sqlite3.connect("L2RebornMarket.db")
 cursor = connection.cursor()
@@ -17,6 +18,7 @@ seenItemPriceTable = """CREATE TABLE IF NOT EXISTS "%s" (
 "date"	TEXT NOT NULL,
 "location"	TEXT,
 "person"	TEXT,
+"user" TEXT NOT NULL,
 PRIMARY KEY("_id" AUTOINCREMENT)
 );""" % SEEN_PRICE_TABLE_NAME
 
@@ -45,11 +47,11 @@ def addNewItem(name, itemId=-1):
     return name, " added"
 
 
-def addSeenItem(name, seenAs, price, quantity, location, person):
+def addSeenItem(name, seenAs, price, quantity, location, person, user=CONSTANTS.USER):
     ts = calendar.timegm(time.gmtime())
     try:
-        command = "INSERT INTO %s VALUES (null, '%s', '%s', %d, %d, %d, '%s', '%s')" \
-                  % (SEEN_PRICE_TABLE_NAME, name, seenAs, price, quantity, ts, location, person)
+        command = "INSERT INTO %s VALUES (null, '%s', '%s', %d, %d, %d, '%s', '%s', 's')" \
+                  % (SEEN_PRICE_TABLE_NAME, name, seenAs, price, quantity, ts, location, person, user)
         cursor.execute(command)
         connection.commit()
     except sqlite3.IntegrityError as e:
