@@ -1,2 +1,3 @@
 DEBUG_DIR = 'DEBUG'
 TESS_DEBUG_DIR = DEBUG_DIR + '/TESS'
+USER = "RedSpark"
