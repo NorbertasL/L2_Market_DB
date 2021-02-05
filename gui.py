@@ -137,6 +137,7 @@ myTree.column("Date", anchor="c")
 myTree.column("Location", width=100, anchor="c")
 myTree.column("Person", width=100, anchor="c")
 
+
 # Headings
 myTree.heading("#0", text="")
 myTree.heading("Name", text="Name")
@@ -149,6 +150,19 @@ myTree.heading("Person", text="Person")
 
 myTree.grid(row=5, column=0, columnspan=6, padx=(20, 0))
 
+def treeRightClick(event):
+    column = myTree.identify_column(event.x)
+    row = myTree.identify_row(event.y)
+    print("Right Click on Column:", column, " Row:", row)
+
+def treeLeftClick(event):
+    column = myTree.identify_column(event.x)
+    row = myTree.identify_row(event.y)
+    print("Left Click on Column:", column, " Row:", row)
+
+
+myTree.bind("<Button-3>", treeRightClick)
+myTree.bind("<Button-1>", treeLeftClick)
 
 def updateList():
     myTree.delete(*myTree.get_children())
