@@ -14,3 +14,4 @@ tool to be able to see previous item prices.
 * cv2
 * numpy
 * pynput.keyboard
+* Tesseract OCR
