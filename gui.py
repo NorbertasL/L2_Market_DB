@@ -175,8 +175,6 @@ def updateList():
                                                                           record[5],
                                                                           record[6]))
         count += 1
-
-
 def onClose():
     global keyListener
     global exitApp
