@@ -1,8 +1,9 @@
 #https://pythonhosted.org/pynput/keyboard.html
-from pynput.keyboard import Key, Listener, KeyCode
+from pynput.keyboard import Listener, KeyCode
 
 import CONSTANTS
-import img_capture
+from ImgTools import img_capture
+
 
 def on_release(key):
     print('{0} release'.format(

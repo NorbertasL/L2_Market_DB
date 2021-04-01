@@ -18,9 +18,15 @@ def captureRawImg():
     imgItemInfo = getItemInfoImg()
     debugg_log.logRawImgData(imgTargetName, imgItemInfo, ts)
 
+    # Overwriting the variable since we have no more use for raw img
+    imgTargetName = convertToGray(imgTargetName)
+    imgItemInfo = convertToGray(imgItemInfo)
+    debugg_log.logGreyImgData(imgTargetName, imgItemInfo, ts)
 
+def convertToGray(img):
+    return cv2.cvtColor(np.array(img), cv2.COLOR_BGR2GRAY)
 
-def getText(saveData=False):
+def getText(saveData = True):
     itemImg = getItemInfoImg(saveData)
     nameImg = getTargetNameImg(saveData)
     itemImgText = pytesseract.image_to_string(itemImg[0])
