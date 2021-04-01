@@ -2,7 +2,7 @@
 from pynput.keyboard import Key, Listener, KeyCode
 
 import CONSTANTS
-import img_helper
+import img_capture
 
 def on_release(key):
     print('{0} release'.format(
@@ -13,7 +13,8 @@ def on_press(key):
     print('{0} pressed'.format(key))
     if key == KeyCode.from_char(CONSTANTS.TAKE_PIC_KEY):
         print("Gathering screen data...")
-        first, second = (img_helper.getText(True))
+        # Capturing img
+        img_capture.getRawImg()
 
 
 
