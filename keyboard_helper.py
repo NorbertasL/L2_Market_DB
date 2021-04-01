@@ -2,7 +2,7 @@
 from pynput.keyboard import Listener, KeyCode
 
 import CONSTANTS
-from ImgTools import img_capture
+from ImgParseTools import img_capture
 
 
 def on_release(key):
