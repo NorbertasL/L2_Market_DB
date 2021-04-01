@@ -14,7 +14,7 @@ def on_press(key):
     if key == KeyCode.from_char(CONSTANTS.TAKE_PIC_KEY):
         print("Gathering screen data...")
         # Capturing img
-        img_capture.getRawImg()
+        img_capture.captureRawImg()
 
 
 

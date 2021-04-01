@@ -5,7 +5,7 @@ TESS_DEBUG_DIR_BW = DEBUG_DIR + '/TESS/BW_IMG'  # BW is Black and White
 # Debug log variables
 LOG = True
 LOG_NAME = "L2_Market_DB_Log.txt"
-LOGFILE = DEBUG_DIR + 'LOGS/' + LOG_NAME
+LOGFILE = DEBUG_DIR + '/LOGS/' + LOG_NAME
 RAW_IMG_DATA = True
 BW_IMG_DATA = True
 RAW_TXT_DATA = True

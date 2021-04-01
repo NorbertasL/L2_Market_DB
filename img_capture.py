@@ -9,11 +9,14 @@ import pytesseract
 import calendar
 
 import CONSTANTS
+from DebugTools import debugg_log
 
-def getRawImg():
+
+def captureRawImg():
     ts = calendar.timegm(time.gmtime())
     imgTargetName = getTargetNameImg()
     imgItemInfo = getItemInfoImg()
+    debugg_log.logRawImgData(imgTargetName, imgItemInfo, ts)
 
 
 
