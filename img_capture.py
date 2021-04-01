@@ -6,9 +6,15 @@ from PIL import ImageGrab, Image
 import cv2
 import numpy as np
 import pytesseract
-import calendar;
+import calendar
 
 import CONSTANTS
+
+def getRawImg():
+    ts = calendar.timegm(time.gmtime())
+    imgTargetName = getTargetNameImg()
+    imgItemInfo = getItemInfoImg()
+
 
 
 def getText(saveData=False):
@@ -28,25 +34,25 @@ def getText(saveData=False):
 
 
 # Grab the image of the name tag
-def getTargetNameImg(saveImg=False):
-    img = ImageGrab.grab(bbox=(100, 10, 400, 780))
-    ts = calendar.timegm(time.gmtime())
-    if saveImg:
-        img.save(CONSTANTS.TESS_DEBUG_DIR+'/Name '+str(ts)+'.png')
-    img_np = np.array(img)
-    nameImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
-    return nameImage, ts
+def getTargetNameImg():
+    return ImageGrab.grab(bbox=(100, 10, 400, 780))
+
+
+    #if saveImg:
+    #    img.save(CONSTANTS.TESS_DEBUG_DIR+'/Name '+str(ts)+'.png')
+    #img_np = np.array(img)
+    #nameImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
 
 
 # Grab the image of the item hovered by the mouse
-def getItemInfoImg(saveImg=False):
+def getItemInfoImg():
     # So tha grap bbox par are X , Y , X+W, Y+H, what genius designed this?
     # Stupides par i have ever seen for a image capturing
     point = win32gui.GetCursorPos()
-    img = ImageGrab.grab(bbox=(point[0], point[1], point[0] + 500, point[1] + 500))
-    ts = calendar.timegm(time.gmtime())
-    if saveImg:
-        img.save(CONSTANTS.TESS_DEBUG_DIR+'/Item '+str(ts)+'.png')
-    img_np = np.array(img)
-    itemImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
-    return itemImage, ts
+    return ImageGrab.grab(bbox=(point[0], point[1], point[0] + 500, point[1] + 500))
+   # ts = calendar.timegm(time.gmtime())
+    #if saveImg:
+   #     img.save(CONSTANTS.TESS_DEBUG_DIR+'/Item '+str(ts)+'.png')
+    #img_np = np.array(img)
+    #itemImage = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
+    #return itemImage, ts

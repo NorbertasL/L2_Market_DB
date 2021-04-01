@@ -76,6 +76,7 @@ my_menu.add_cascade(label="Add", menu=add_menu)
 add_menu.add_command(label="New Item", command=addNewItem)
 add_menu.add_command(label="Item List", command=openItemNameListWindow)
 
+
 # New item entry widgets
 itemNameText = tk.StringVar()
 itemNameLabel = tk.Label(window, text="Name:", font=('bold', 14))
