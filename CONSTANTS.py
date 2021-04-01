@@ -1,4 +1,15 @@
 DEBUG_DIR = 'DEBUG'
-TESS_DEBUG_DIR = DEBUG_DIR + '/TESS'
+TESS_DEBUG_DIR_RAW = DEBUG_DIR + '/TESS/RAW_IMG'
+TESS_DEBUG_DIR_BW = DEBUG_DIR + '/TESS/BW_IMG'  # BW is Black and White
+LOGFILE_DIR = DEBUG_DIR + 'LOGS'
+
+# Debug log variables
+LOG = True
+RAW_IMG_DATA = True
+BW_IMG_DATA = True
+RAW_TXT_DATA = True
+PARSED_TXT_DATA = True
+
+#User Settings
 USER = "RedSpark"
 TAKE_PIC_KEY = "c"
