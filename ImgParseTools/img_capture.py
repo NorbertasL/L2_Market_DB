@@ -49,7 +49,9 @@ def getText(saveData=True):
 
 # Grab the image of the name tag
 def getTargetNameImg():
-    return ImageGrab.grab(bbox=(100, 10, 400, 780))
+    return ImageGrab.grab(bbox=(CONSTANTS.NAME_LOC[0], CONSTANTS.NAME_LOC[1],
+                                CONSTANTS.NAME_LOC[0] + CONSTANTS.NAME_BOX_SIZE[0],
+                                CONSTANTS.NAME_LOC[1] + CONSTANTS.NAME_BOX_SIZE[1]))
 
     # if saveImg:
     #    img.save(CONSTANTS.TESS_DEBUG_DIR+'/Name '+str(ts)+'.png')
