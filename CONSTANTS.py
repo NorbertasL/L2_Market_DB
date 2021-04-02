@@ -1,17 +1,19 @@
+# Dir paths
 DEBUG_DIR = 'DEBUG'
+LOGFILE_DIR = DEBUG_DIR + '/LOGS'
 TESS_DEBUG_DIR_RAW_IMG = DEBUG_DIR + '/TESS/RAW_IMG'
 TESS_DEBUG_DIR_GREY_IMG = DEBUG_DIR + '/TESS/GREY_IMG'  # Grey scale
 TESS_DEBUG_DIR_RAW_TXT = DEBUG_DIR + '/TESS/RAW_TXT'
+TESS_DEBUG_DIR_PARSED_TXT = DEBUG_DIR + '/TESS/PARSED_TXT'
 
-#Img variables
+# Img box sizes and locations
 NAME_LOC = (5, 10,)
 NAME_BOX_SIZE = (5, 10)
 ITEM_BOX_SIZE = (30, 60)
 
-# Debug log variables
+# Debug log settings
 LOG = True
 LOG_NAME = "L2_Market_DB_Log.txt"
-LOGFILE_DIR = DEBUG_DIR + '/LOGS'
 LOGFILE_PATH = LOGFILE_DIR + '/' + LOG_NAME
 RAW_IMG_DATA = True
 GREY_IMG_DATA = True

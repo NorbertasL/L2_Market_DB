@@ -10,7 +10,8 @@ window = tk.Tk("L2Reborn")
 window.title("L2Reborn Market Data")
 window.geometry("1100x400")
 
-keyListener = KeyListener().start()
+keyListener = KeyListener()
+keyListener.start()
 exitApp = False
 
 def addNewItem(name, itemId=-1):
