@@ -7,10 +7,9 @@ TESS_DEBUG_DIR_RAW_TXT = DEBUG_DIR + '/TESS/RAW_TXT'
 TESS_DEBUG_DIR_PARSED_TXT = DEBUG_DIR + '/TESS/PARSED_TXT'
 
 # Img box sizes and locations
-NAME_LOC = (5, 10,)
-NAME_BOX_SIZE = (5, 10)
-ITEM_BOX_SIZE = (30, 60)
-
+NAME_LOC = (845, 0)
+NAME_BOX_SIZE = (170, 45)
+ITEM_BOX_SIZE = (190, 330)
 # Debug log settings
 LOG = True
 LOG_NAME = "L2_Market_DB_Log.txt"
