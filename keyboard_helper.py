@@ -23,7 +23,7 @@ def on_press(keyInfo):
 class KeyListener:
 
     def start(self):
-        self.listener = keyboard.hook_key(CONSTANTS.TAKE_PIC_KEY, on_press)
+        self.listener = keyboard.on_press_key(CONSTANTS.TAKE_PIC_KEY, on_press)
         #self.listener.start()
         print("Starting key listener:", self.listener)
 
