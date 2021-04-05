@@ -9,4 +9,3 @@ def extractNameAndItemData(nameImg, itemImg, ts):
     debugg_log.logRawTxTData(nameTxt, itemText, ts)
 
     # TODO continue process path by parsing the txt data into proper chunks
-

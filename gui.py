@@ -2,7 +2,7 @@ import time
 import tkinter as tk
 from datetime import datetime
 from tkinter import ttk
-import db_con
+import db_conn
 from keyboard_helper import KeyListener
 
 
@@ -11,11 +11,10 @@ window.title("L2Reborn Market Data")
 window.geometry("1100x400")
 
 keyListener = KeyListener()
-keyListener.start()
 exitApp = False
 
 def addNewItem(name, itemId=-1):
-    db_con.addNewItem(name, itemId)
+    db_conn.addNewItem(name, itemId)
 
 
 # Using this to time click interval to prevent spam clicking
@@ -38,7 +37,7 @@ def addNewPrice(name, seenAs, price, loc, quan, person):
         return
 
     if lastTime is None or timeNow - lastTime > 2:
-        returnValue = db_con.addSeenItem(name, seenAs, price, quan, loc, person)
+        returnValue = db_conn.addSeenItem(name, seenAs, price, quan, loc, person)
         lastTime = timeNow
         processLabel.config(text=returnValue, fg="green")
         updateList()
@@ -168,7 +167,7 @@ myTree.bind("<Button-1>", treeLeftClick)
 
 def updateList():
     myTree.delete(*myTree.get_children())
-    data = db_con.getAll(db_con.SEEN_PRICE_TABLE_NAME)
+    data = db_conn.getAll(db_conn.SEEN_PRICE_TABLE_NAME)
     data.reverse()
     count = 0
     for record in data:

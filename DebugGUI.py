@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import ImageGrab,ImageTk
 import ctypes
 
-#Look into this and translated it for my needs.
+# TODO Look into this and translated it for my needs.
 
 ctypes.windll.shcore.SetProcessDpiAwareness(2) # windows 10
 
