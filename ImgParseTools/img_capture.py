@@ -19,15 +19,20 @@ def captureRawImg():
     debugg_log.logRawImgData(imgTargetName, imgItemInfo, ts)
 
     # Overwriting the variable since we have no more use for raw img
-    imgTargetName = convertToGray(imgTargetName)
-    imgItemInfo = convertToGray(imgItemInfo)
+    imgTargetName = simplifyImg(imgTargetName)
+    imgItemInfo = simplifyImg(imgItemInfo)
     debugg_log.logGreyImgData(imgTargetName, imgItemInfo, ts)
 
     text_parse.extractNameAndItemData(imgTargetName, imgItemInfo, ts)  # passing in ts for debugging
 
 
-def convertToGray(img):
-    return cv2.cvtColor(np.array(img), cv2.COLOR_BGR2GRAY)
+def simplifyImg(img):
+    # Making img grey scale
+    tempImg = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2GRAY)
+
+    # inverting black and white, because tess works better with dark  text on light background
+    tempImg = cv2.bitwise_not(tempImg)
+    return tempImg
 
 # TODO move this to text_parse.py
 def getText(saveData=True):
