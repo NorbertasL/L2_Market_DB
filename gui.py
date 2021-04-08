@@ -14,7 +14,7 @@ keyListener = KeyListener()
 exitApp = False
 
 def addNewItem(name, itemId=-1):
-    db_conn.addNewItem(name, itemId)
+    db_conn.addNewItemName(name, itemId)
 
 
 # Using this to time click interval to prevent spam clicking

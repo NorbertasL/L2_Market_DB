@@ -1,7 +1,6 @@
 import sqlite3
 import calendar
 import time
-import CONSTANTS
 
 connection = sqlite3.connect("L2RebornMarket.db")
 cursor = connection.cursor()
@@ -35,7 +34,7 @@ cursor.execute(seenItemPriceTable)
 cursor.execute(itemNameListTable)
 
 
-def addNewItem(name, itemId=-1):
+def addNewItemName(name, itemId=-1):
     try:
         command = """INSERT INTO %s (name, itemId)
         VALUES ('%s', %d)""" % (ITEM_NAME_LIST_TABLE_NAME, name, itemId)
@@ -47,11 +46,11 @@ def addNewItem(name, itemId=-1):
     return name, " added"
 
 
-def addSeenItem(name, seenAs, price, quantity, location, person, user=CONSTANTS.USER):
+def addSeenItem(name, seenAs, price, quantity, location, person):
     ts = calendar.timegm(time.gmtime())
     try:
-        command = "INSERT INTO %s VALUES (null, '%s', '%s', %d, %d, %d, '%s', '%s', 's')" \
-                  % (SEEN_PRICE_TABLE_NAME, name, seenAs, price, quantity, ts, location, person, user)
+        command = f"INSERT INTO {SEEN_PRICE_TABLE_NAME} VALUES (null, '{name}', " \
+                  f"'{seenAs}', {price:d}, {quantity:d}, {ts:d}, '{location}', '{person}', 's')"
         cursor.execute(command)
         connection.commit()
     except sqlite3.IntegrityError as e:
@@ -60,9 +59,9 @@ def addSeenItem(name, seenAs, price, quantity, location, person, user=CONSTANTS.
 
     return name + " has been added, Price:"+str(price)
 
-def deleteSeenItem(id):
+def deleteSeenItem(_id):
     try:
-        command = "DELETE from %s where _id  = %d" % (SEEN_PRICE_TABLE_NAME, id)
+        command = "DELETE from %s where _id  = %d" % (SEEN_PRICE_TABLE_NAME, _id)
         cursor.execute(command)
         connection.commit()
 
