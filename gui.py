@@ -126,10 +126,11 @@ processLabel.grid(row=4, column=2, columnspan=2)
 myTree = ttk.Treeview(window)
 
 # Defining Columns
-myTree['columns'] = ("Name", "Seen As", "Price", "Quantity", "Date", "Location", "Person")
+myTree['columns'] = ("ID", "Name", "Seen As", "Price", "Quantity", "Date", "Location", "Person")
 
 # Formatting columns
 myTree.column("#0", width=0, stretch="no")
+myTree.column("ID", width=10, stretch="no")
 myTree.column("Name", anchor="w")
 myTree.column("Seen As", width=60, anchor="w")
 myTree.column("Price", width=200, anchor="c")
@@ -141,6 +142,7 @@ myTree.column("Person", width=100, anchor="c")
 
 # Headings
 myTree.heading("#0", text="")
+myTree.heading("ID", text="ID")
 myTree.heading("Name", text="Name")
 myTree.heading("Seen As", text="Seen As")
 myTree.heading("Price", text="Price")
@@ -151,10 +153,17 @@ myTree.heading("Person", text="Person")
 
 myTree.grid(row=5, column=0, columnspan=6, padx=(20, 0))
 
+# using this to delete item from list and DB
 def treeRightClick(event):
     column = myTree.identify_column(event.x)
     row = myTree.identify_row(event.y)
     print("Right Click on Column:", column, " Row:", row)
+    itemId = myTree.item(myTree.focus())['values'][0]
+    print("ID is: ", itemId)
+    # TODO add some kind of confirmation window
+    db_conn.deleteSeenItem(itemId)
+    updateList()
+
 
 def treeLeftClick(event):
     column = myTree.identify_column(event.x)

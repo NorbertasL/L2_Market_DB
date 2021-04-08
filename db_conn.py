@@ -55,11 +55,21 @@ def addSeenItem(name, seenAs, price, quantity, location, person, user=CONSTANTS.
         cursor.execute(command)
         connection.commit()
     except sqlite3.IntegrityError as e:
+        print(e)
         return e
 
     return name + " has been added, Price:"+str(price)
 
+def deleteSeenItem(id):
+    try:
+        command = "DELETE from %s where _id  = %d" % (SEEN_PRICE_TABLE_NAME, id)
+        cursor.execute(command)
+        connection.commit()
+
+    except sqlite3.IntegrityError as e:
+        print(e)
+        return e
 
 def getAll(tableName):
-    cursor.execute("SELECT name, seenAs, price, quantity, date, location, person FROM "+tableName)
+    cursor.execute("SELECT _id, name, seenAs, price, quantity, date, location, person FROM "+tableName)
     return cursor.fetchall()
