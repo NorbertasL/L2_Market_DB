@@ -33,7 +33,7 @@ PRIMARY KEY("_id" AUTOINCREMENT)
 cursor.execute(seenItemPriceTable)
 cursor.execute(itemNameListTable)
 
-
+# itemNameListTable functions
 def addNewItemName(name, itemId=-1):
     try:
         command = """INSERT INTO %s (name, itemId)
@@ -50,7 +50,7 @@ def addSeenItem(name, seenAs, price, quantity, location, person):
     ts = calendar.timegm(time.gmtime())
     try:
         command = f"INSERT INTO {SEEN_PRICE_TABLE_NAME} VALUES (null, '{name}', " \
-                  f"'{seenAs}', {price:d}, {quantity:d}, {ts:d}, '{location}', '{person}', 's')"
+                  f"'{seenAs}', {price}, {quantity}, {ts}, '{location}', '{person}')"
         cursor.execute(command)
         connection.commit()
     except sqlite3.IntegrityError as e:
@@ -59,6 +59,8 @@ def addSeenItem(name, seenAs, price, quantity, location, person):
 
     return name + " has been added, Price:"+str(price)
 
+
+# seenItemPriceTable functions
 def deleteSeenItem(_id):
     try:
         command = "DELETE from %s where _id  = %d" % (SEEN_PRICE_TABLE_NAME, _id)
