@@ -1,11 +1,0 @@
-ind("<Button-1>", treeLet
-
-teList():
-
-ee. delete (*myTree.get_chi
-getListData()
-
-t= 0
-
- 
-

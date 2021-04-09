@@ -1,10 +1,0 @@
-# name
-
-# seenAs
-
-# price
-
-# quantity
-‘omtimestamp(int (record[5.
-. # Lod
-
