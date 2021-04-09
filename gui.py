@@ -130,7 +130,7 @@ myTree['columns'] = ("ID", "Name", "Seen As", "Price", "Quantity", "Date", "Loca
 
 # Formatting columns
 myTree.column("#0", width=0, stretch="no")
-myTree.column("ID", width=10, stretch="no")
+myTree.column("ID", width=0, stretch="no")
 myTree.column("Name", anchor="w")
 myTree.column("Seen As", width=60, anchor="w")
 myTree.column("Price", width=200, anchor="c")
@@ -176,15 +176,22 @@ myTree.bind("<Button-1>", treeLeftClick)
 
 def updateList():
     myTree.delete(*myTree.get_children())
-    data = db_conn.getAll(db_conn.SEEN_PRICE_TABLE_NAME)
-    data.reverse()
+    data = getListData()
     count = 0
     for record in data:
-        myTree.insert(parent='', index='end', iid=count, text='', values=(record[0], record[1], record[2], record[3],
-                                                                          datetime.fromtimestamp(int(record[4])),
-                                                                          record[5],
-                                                                          record[6]))
+        myTree.insert(parent='', index='end', iid=count, text='', values=(record[0],  # id(invisible)
+                                                                          record[1],  # name
+                                                                          record[2],  # seenAs
+                                                                          record[3],  # price
+                                                                          record[4],  # quantity
+                                                                          datetime.fromtimestamp(int(record[5])),  # date
+                                                                          record[6],  # location
+                                                                          record[7]))   # person
         count += 1
+def getListData():
+    data = db_conn.getAll(db_conn.SEEN_PRICE_TABLE_NAME)
+    data.reverse()
+    return data
 def onClose():
     global keyListener
     global exitApp
