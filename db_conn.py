@@ -2,6 +2,8 @@ import sqlite3
 import calendar
 import time
 
+from DebugTools import debug_log
+
 connection = sqlite3.connect("L2RebornMarket.db")
 cursor = connection.cursor()
 
@@ -40,8 +42,10 @@ def addNewItemName(name, itemId=-1):
         VALUES ('%s', %d)""" % (ITEM_NAME_LIST_TABLE_NAME, name, itemId)
         cursor.execute(command)
         connection.commit()
+        debug_log.addLog("LOCAL_DB", "New item NAME added " + name + " to " + ITEM_NAME_LIST_TABLE_NAME)
     except sqlite3.IntegrityError as e:
         print(e)
+        debug_log.addLog("ERROR_LOCAL_DB" + e)
         return e
     return name, " added"
 
@@ -53,8 +57,10 @@ def addSeenItem(name, seenAs, price, quantity, location, person):
                   f"'{seenAs}', {price}, {quantity}, {ts}, '{location}', '{person}')"
         cursor.execute(command)
         connection.commit()
+        debug_log.addLog("LOCAL_DB", "New seen item added " + name + " to " + SEEN_PRICE_TABLE_NAME)
     except sqlite3.IntegrityError as e:
         print(e)
+        debug_log.addLog("ERROR_LOCAL_DB" + e)
         return e
 
     return name + " has been added, Price:"+str(price)
@@ -66,9 +72,11 @@ def deleteSeenItem(_id):
         command = "DELETE from %s where _id  = %d" % (SEEN_PRICE_TABLE_NAME, _id)
         cursor.execute(command)
         connection.commit()
+        debug_log.addLog("LOCAL_DB", "DELETED item of id:" + str(_id) + " from " + SEEN_PRICE_TABLE_NAME)
 
     except sqlite3.IntegrityError as e:
         print(e)
+        debug_log.addLog("ERROR_LOCAL_DB" + e)
         return e
 
 def getAll(tableName):

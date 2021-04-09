@@ -182,8 +182,8 @@ def updateList():
         myTree.insert(parent='', index='end', iid=count, text='', values=(record[0],  # id(invisible)
                                                                           record[1],  # name
                                                                           record[2],  # seenAs
-                                                                          record[3],  # price
-                                                                          record[4],  # quantity
+                                                                          f'{record[3]:,}',  # price
+                                                                          f'{record[4]:,}',  # quantity
                                                                           datetime.fromtimestamp(int(record[5])),  # date
                                                                           record[6],  # location
                                                                           record[7]))   # person

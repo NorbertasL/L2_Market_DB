@@ -1,5 +1,6 @@
 import keyboard
 import CONSTANTS
+from DebugTools import debug_log
 from ImgParseTools import img_capture
 
 
@@ -11,6 +12,7 @@ from ImgParseTools import img_capture
 def on_press(keyInfo):
     print("Gathering screen data...")
     # Capturing img
+    debug_log.addLog("KEYBOARD", "Capture key was pressed.")
     img_capture.captureRawImg()
 
 

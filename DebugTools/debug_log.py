@@ -15,9 +15,9 @@ def logRawImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
         itemImgName = 'Rew_Item ' + str(ts) + '.png'
         nameImgName = 'Raw_Name ' + str(ts) + '.png'
         itemImg.save(CONSTANTS.TESS_DEBUG_DIR_RAW_IMG + '/' + itemImgName)
-        addLog("Created " + itemImgName, ts)
+        addLog("TESSERACT", "Created " + itemImgName, ts)
         nameImg.save(CONSTANTS.TESS_DEBUG_DIR_RAW_IMG + '/' + nameImgName)
-        addLog("Created " + nameImgName, ts)
+        addLog("TESSERACT", "Created " + nameImgName, ts)
 
 
 def logGreyImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
@@ -32,9 +32,9 @@ def logGreyImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
         namePng = Image.fromarray(nameImg)
 
         itemPng.save(CONSTANTS.TESS_DEBUG_DIR_GREY_IMG + '/' + itemImgName)
-        addLog("Created " + itemImgName, ts)
+        addLog("TESSERACT", "Created " + itemImgName, ts)
         namePng.save(CONSTANTS.TESS_DEBUG_DIR_GREY_IMG + '/' + nameImgName)
-        addLog("Created " + nameImgName, ts)
+        addLog("TESSERACT", "Created " + nameImgName, ts)
 
 
 def logRawTxTData(nameTxt, itemTxt, ts=calendar.timegm(time.gmtime())):
@@ -46,21 +46,21 @@ def logRawTxTData(nameTxt, itemTxt, ts=calendar.timegm(time.gmtime())):
         nameData = open(CONSTANTS.TESS_DEBUG_DIR_RAW_TXT + '/' + nameTxtName, 'a')
         nameData.write(nameTxt)
         nameData.close()
-        addLog("Created " + nameTxtName, ts)
+        addLog("TESSERACT", "Created " + nameTxtName, ts)
 
         itemTxtName = 'Raw_Item ' + str(ts) + '.txt'
         itemData = open(CONSTANTS.TESS_DEBUG_DIR_RAW_TXT + '/' + itemTxtName, 'a')
         itemData.write(itemTxt)
         itemData.close()
-        addLog("Created " + itemTxtName, ts)
+        addLog("TESSERACT", "Created " + itemTxtName, ts)
 
 
-def addLog(message, ts=calendar.timegm(time.gmtime())):
+def addLog(logType="UNNAMED", message="NO_MESSAGE", ts=calendar.timegm(time.gmtime())):
     if CONSTANTS.LOG:
         dirCheck(CONSTANTS.LOGFILE_DIR)
         print("logging data into log file")
         log = open(CONSTANTS.LOGFILE_PATH, 'a')
-        log.write(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(ts)) + ':' + message + '\n')
+        log.write(logType + " : " + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(ts)) + '-' + message + '\n')
         log.close()
 
 

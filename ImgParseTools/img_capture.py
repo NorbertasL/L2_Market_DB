@@ -8,7 +8,7 @@ import pytesseract
 import calendar
 
 import CONSTANTS
-from DebugTools import debugg_log
+from DebugTools import debug_log
 from ImgParseTools import text_parse
 
 
@@ -16,12 +16,12 @@ def captureRawImg():
     ts = calendar.timegm(time.gmtime())
     imgTargetName = getTargetNameImg()
     imgItemInfo = getItemInfoImg()
-    debugg_log.logRawImgData(imgTargetName, imgItemInfo, ts)
+    debug_log.logRawImgData(imgTargetName, imgItemInfo, ts)
 
     # Overwriting the variable since we have no more use for raw img
     imgTargetName = simplifyImg(imgTargetName)
     imgItemInfo = simplifyImg(imgItemInfo)
-    debugg_log.logGreyImgData(imgTargetName, imgItemInfo, ts)
+    debug_log.logGreyImgData(imgTargetName, imgItemInfo, ts)
 
     text_parse.extractNameAndItemData(imgTargetName, imgItemInfo, ts)  # passing in ts for debugging
 
