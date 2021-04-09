@@ -158,11 +158,12 @@ def treeRightClick(event):
     column = myTree.identify_column(event.x)
     row = myTree.identify_row(event.y)
     print("Right Click on Column:", column, " Row:", row)
-    itemId = myTree.item(myTree.focus())['values'][0]
-    print("ID is: ", itemId)
-    # TODO add some kind of confirmation window
-    db_conn.deleteSeenItem(itemId)
-    updateList()
+    # Only deleting item if i click the same focused row with a right click
+    if myTree.focus() == row:
+        # TODO add some kind of confirmation window
+        itemId = myTree.item(myTree.focus())['values'][0]
+        db_conn.deleteSeenItem(itemId)
+        updateList()
 
 
 def treeLeftClick(event):
@@ -170,9 +171,15 @@ def treeLeftClick(event):
     row = myTree.identify_row(event.y)
     print("Left Click on Column:", column, " Row:", row)
 
+def treeDoubleLeftClick(event):
+    column = myTree.identify_column(event.x)
+    row = myTree.identify_row(event.y)
+    print("2x Left Click on Column:", column, " Row:", row)
+
 
 myTree.bind("<Button-3>", treeRightClick)
 myTree.bind("<Button-1>", treeLeftClick)
+myTree.bind("<Double-1>", treeDoubleLeftClick)
 
 def updateList():
     myTree.delete(*myTree.get_children())
