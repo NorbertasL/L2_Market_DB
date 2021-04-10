@@ -2,6 +2,8 @@ import time
 import tkinter as tk
 from datetime import datetime
 from tkinter import ttk
+
+import AppVariables
 import db_conn
 from keyboard_helper import KeyListener
 
@@ -114,10 +116,27 @@ personLabel.grid(row=1, column=4, sticky="W")
 personEntry = tk.Entry(window, textvariable=personText)
 personEntry.grid(row=1, column=5, sticky="W")
 
+# Add data to DB btn
 addBtn = tk.Button(window, text="Add", height=1, width=80,
                    command=lambda: addNewPrice(itemNameText.get(), seenAsText.get(), priceNameText.get(),
                                                locationText.get(), quanText.get(), personText.get()))
-addBtn.grid(row=3, column=0, columnspan=6)
+addBtn.grid(row=3, column=1, columnspan=6)
+
+# Record btn for starting stopping key listening for img capture
+def keyListenToggle():
+    global keyListenBtn
+    btnStates = ["Start Key Listen", "Recording..."]
+    if keyListenBtn['text'] == btnStates[0]:
+        AppVariables.recordKeysOn = True
+        keyListenBtn.config(text=btnStates[1], fg="red")
+    else:
+        AppVariables.recordKeysOn = False
+        keyListenBtn.config(text=btnStates[0], fg="black")
+
+
+keyListenBtn = tk.Button(window, text="Start Key Listen", height=1, width=15, command=keyListenToggle)
+keyListenBtn.grid(row=3, column=0, columnspan=1)
+
 
 processLabel = tk.Label(window)
 processLabel.grid(row=4, column=2, columnspan=2)
@@ -167,11 +186,13 @@ def treeRightClick(event):
 
 
 def treeLeftClick(event):
+    # This will probably not be used
     column = myTree.identify_column(event.x)
     row = myTree.identify_row(event.y)
     print("Left Click on Column:", column, " Row:", row)
 
 def treeDoubleLeftClick(event):
+    # should open a detailed item window where i can edit item parameters.
     column = myTree.identify_column(event.x)
     row = myTree.identify_row(event.y)
     print("2x Left Click on Column:", column, " Row:", row)

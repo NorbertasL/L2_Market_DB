@@ -1,4 +1,6 @@
 import keyboard
+
+import AppVariables
 import CONSTANTS
 from DebugTools import debug_log
 from ImgParseTools import img_capture
@@ -8,12 +10,13 @@ from ImgParseTools import img_capture
 # https://gist.github.com/ethanhs/80f0a7cc5c7881f5921f
 # TODO will probably need to create my own low level key listener, but first i need to test is if the low level solution
 # actually works.
-
 def on_press(keyInfo):
-    print("Gathering screen data...")
-    # Capturing img
-    debug_log.addLog("KEYBOARD", "Capture key was pressed.")
-    img_capture.captureRawImg()
+    if AppVariables.recordKeysOn:
+        print("Gathering screen data...")
+        # Capturing img
+        debug_log.addLog("KEYBOARD", "Capture key was pressed.")
+        img_capture.captureRawImg()
+    # print("YOU DISABLED CAPTURING KEY IN keyboard_helper")
 
 
 class KeyListener:
