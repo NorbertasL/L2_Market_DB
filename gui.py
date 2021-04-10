@@ -172,6 +172,12 @@ myTree.heading("Person", text="Person")
 
 myTree.grid(row=5, column=0, columnspan=6, padx=(20, 0))
 
+# will sort column is ascending and descending order.
+def sortData(column, ascendingOrder):
+    # TODO write a soring function
+    if ascendingOrder:
+        return
+
 # using this to delete item from list and DB
 def treeRightClick(event):
     column = myTree.identify_column(event.x)
@@ -190,6 +196,9 @@ def treeLeftClick(event):
     column = myTree.identify_column(event.x)
     row = myTree.identify_row(event.y)
     print("Left Click on Column:", column, " Row:", row)
+    if row == "":
+        print("Header click")
+        sortData(sortData, True)
 
 def treeDoubleLeftClick(event):
     # should open a detailed item window where i can edit item parameters.
