@@ -1,0 +1,2 @@
+# Recording state
+recordKeysOn = False
