@@ -19,6 +19,4 @@ GREY_IMG_DATA = True
 RAW_TXT_DATA = True
 PARSED_TXT_DATA = True
 
-# User Settings
-USER = "RedSpark"
-TAKE_PIC_KEY = "c"
+
