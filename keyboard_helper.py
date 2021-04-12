@@ -3,7 +3,7 @@ import keyboard
 import AppVariables
 import CONSTANTS
 from DebugTools import debug_log
-from ImgParseTools import img_capture
+from ParseTools import img_capture
 
 
 # TODO Look into implementing this to solve the game suppressing keyEvents

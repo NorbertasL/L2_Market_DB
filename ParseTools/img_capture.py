@@ -9,7 +9,7 @@ import calendar
 
 import CONSTANTS
 from DebugTools import debug_log
-from ImgParseTools import text_parse
+from ParseTools import text_parse
 
 
 def captureRawImg():
@@ -23,7 +23,7 @@ def captureRawImg():
     imgItemInfo = simplifyImg(imgItemInfo)
     debug_log.logGreyImgData(imgTargetName, imgItemInfo, ts)
 
-    text_parse.extractNameAndItemData(imgTargetName, imgItemInfo, ts)  # passing in ts for debugging
+    text_parse.parseDataFromImgs(imgTargetName, imgItemInfo, ts)  # passing in ts for debugging
 
 
 def simplifyImg(img):

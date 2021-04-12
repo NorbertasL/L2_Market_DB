@@ -7,7 +7,7 @@ TESS_DEBUG_DIR_RAW_TXT = DEBUG_DIR + '/TESS/RAW_TXT'
 TESS_DEBUG_DIR_PARSED_TXT = DEBUG_DIR + '/TESS/PARSED_TXT'
 
 # Img box sizes and locations
-NAME_LOC = (845, 0)
+NAME_LOC = (876, 0)
 NAME_BOX_SIZE = (170, 45)
 ITEM_BOX_SIZE = (200, 120)
 # Debug log settings
