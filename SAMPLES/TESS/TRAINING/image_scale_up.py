@@ -11,5 +11,5 @@ for file in os.listdir(path):
     if file.endswith(".png"):
         scaling = 4  # 4 time image size
         img = Image.open(path + "\\" + file)
-        img = img.resize((int(img.size[0]) * scaling, int(img.size[1]) * scaling), Image.ANTIALIAS)
+        img = img.resize((img.size[0] * scaling, img.size[1] * scaling), Image.NEAREST)
         img.save(file)
