@@ -1,0 +1,16 @@
+Steps on how I trained tesseract
+1:Get training image
+	-I made the training images greeysacle and also used my image_scale_up.py scrip the scale the images by x4
+2:Compines them into a .tif file.
+	- I used jTestBoxEditor for that.http://vietocr.sourceforge.net/
+3: Run "tesseract --psm 3 --oem 3 NAMEME.font.exp0.tif NAMEME.font.exp0 makebox" to generate a box file.Replace NAMEME with any name you want.
+	- I'm using --psm 3 becouse my training images are multi lined.
+	- NOTE: tif and box file need to be the same name for next step
+4: Now open the .tif file using jTestBoxEditor Box edit function.
+5:Go tough all the boxes checking if the letter/numbers are correct and the box boundries are right.
+6:Use jTestBoxEditor train fuction to generate a .traineddata file
+	- makes sure the correct OCR is selected.jTestBoxEditor comes with is own OCR.
+7:a .traineddata will be generated and now you just replace the old .traineddata in ur OCR with the new one.
+
+NOTE:Prociding user_word will be a good idea in the future.
+Gona take all item name and split them into individual words.
