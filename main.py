@@ -1,5 +1,5 @@
 import main_gui
 
-main_gui.openMainWindow()
+gui = main_gui.Gui()
 while True:
-    main_gui.mainWindow.update()
+    gui.mainWindow.update()
