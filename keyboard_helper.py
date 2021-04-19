@@ -1,6 +1,6 @@
 import keyboard
 
-import AppVariables
+import app_variables
 import CONSTANTS
 from DebugTools import debug_log
 from ParseTools import img_capture
@@ -11,7 +11,7 @@ from ParseTools import img_capture
 # TODO will probably need to create my own low level key listener, but first i need to test is if the low level solution
 # actually works.
 def on_press(keyInfo):
-    if AppVariables.recordKeysOn:
+    if app_variables.recordKeysOn:
         print("Gathering screen data...")
         # Capturing img
         debug_log.addLog("KEYBOARD", "Capture key was pressed.")
@@ -22,7 +22,7 @@ def on_press(keyInfo):
 class KeyListener:
 
     def __init__(self):
-        self.listener = keyboard.on_press_key(AppVariables.TAKE_PIC_KEY, on_press)
+        self.listener = keyboard.on_press_key(app_variables.TAKE_PIC_KEY, on_press)
         print("Starting key listener:", self.listener)
 
     def stop(self):
