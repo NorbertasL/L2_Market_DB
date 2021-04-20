@@ -11,7 +11,7 @@ from ParseTools import img_capture
 # TODO will probably need to create my own low level key listener, but first i need to test is if the low level solution
 # actually works.
 def on_press(keyInfo):
-    if app_variables.recordKeysOn:
+    if app_variables.gatherDataOn:
         print("Gathering screen data...")
         # Capturing img
         debug_log.addLog("KEYBOARD", "Capture key was pressed.")

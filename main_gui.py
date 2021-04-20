@@ -127,10 +127,10 @@ class MasterGui:
         def keyListenToggle():
             btnStates = ["Start Key Listen", "Recording..."]
             if keyListenBtn['text'] == btnStates[0]:
-                app_variables.recordKeysOn = True
+                app_variables.gatherDataOn = True
                 keyListenBtn.config(text=btnStates[1], fg="red")
             else:
-                app_variables.recordKeysOn = False
+                app_variables.gatherDataOn = False
                 keyListenBtn.config(text=btnStates[0], fg="black")
 
         keyListenBtn = tkinter.Button(mainWindow, text="Start Key Listen", height=1, width=15, command=keyListenToggle)
