@@ -9,10 +9,10 @@ USER = "RedSpark"
 TAKE_PIC_KEY = "c"
 
 # Debug displaying
-__isDebugOverlayOn = True
-def isDebugOverlayOn():
+__isOverlayOn = True
+def isOverlayOn():
     # I only want to display the overlay if we are gathering data or it will be blank and waist CPU power
-    return __isDebugOverlayOn and gatherDataOn
+    return __isOverlayOn and gatherDataOn
 
 
 __isDebugWindowOn = True
