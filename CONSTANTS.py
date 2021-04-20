@@ -1,4 +1,7 @@
 # Dir paths
+from collections import namedtuple
+from dataclasses import dataclass
+
 DEBUG_DIR = 'DEBUG'
 LOGFILE_DIR = DEBUG_DIR + '/LOGS'
 TESS_DEBUG_DIR_RAW_IMG = DEBUG_DIR + '/TESS/RAW_IMG'
@@ -18,5 +21,19 @@ RAW_IMG_DATA = True
 GREY_IMG_DATA = True
 RAW_TXT_DATA = True
 PARSED_TXT_DATA = True
+
+# Coordinates
+#Point = namedtuple('Point', 'x y')
+#Rec = namedtuple('Rec', "Point.topLeft Point.botRight")
+
+@dataclass
+class Point:
+    x: int
+    y: int
+
+@dataclass
+class Rectangle:
+    topLeft: Point
+    botRight: Point
 
 
