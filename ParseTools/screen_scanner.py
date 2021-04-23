@@ -31,15 +31,16 @@ def getImage():
 
         # if approx is 4 its a rectangle
         if len(approx) == 4:
-            minArea = 5000
-            area = cv2.contourArea(c)
+            minArea = 7000
+            area = cv2.contourArea(approx)
 
             # Area of rectangle has to be bigger than the minArea
             # I know that my item rectangle has to be above a certain size
             if area > minArea:
                 # There is 2 rectangle enveloping the item, I want the inner one
                 if targetRec is None or cv2.contourArea(targetRec) > area:
-                    targetRec = c
+                    targetRec = approx
+                    print(approx)
                     # x,y,w,h = cv2.boundingRect(c)
                     # Draws green lines around the rectangle
                     # cv2.drawContours(imgToDrawOn, [c], -1, (0, 255, 0), 1)
