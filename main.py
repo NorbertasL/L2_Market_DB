@@ -11,18 +11,16 @@ gui = main_gui.MasterGui()
 debugDisplayWindow = None
 debugDisplayWindowName = "Debug Display"
 
-overlay = None
-
 # Test rectangle for overlay
-rec = Rectangle(Point(100, 500), Point(600, 900))
+
+overlay = None
 
 
 def __closeDebugWindow():
     if debugDisplayWindow is not None:
         debugDisplayWindow.destroy()
-def __closeOverlay():
-    if overlay is not None:
-        overlay.destroy()
+def __closeApp():
+    __closeDebugWindow()
 
 
 while app_variables.appRunning:
@@ -36,7 +34,7 @@ while app_variables.appRunning:
         if app_variables.isOverlayOn():
             if overlay is None:
                 overlay = overlay_display.Overlay()
-            overlay.update(rec)
+            overlay.updatePaint(data.get("targetRec"))
 
         if app_variables.isDebugWindowOn():
             # Displays image in real time with boundary boxes on 2nd screen
@@ -45,11 +43,10 @@ while app_variables.appRunning:
             # TODO draw around name box too
             debugDisplayWindow.display(data.get("rawImage"), data.get("targetRec"))
     else:
-        __closeOverlay()
-        __closeDebugWindow()
+        __closeApp()
 
     # What do we do when main gui is closed
     if not app_variables.mainGuiRunning:
-        __closeDebugWindow()
+        __closeApp()
         # TODO Close all resources and do any config/data saves
         break

@@ -8,9 +8,9 @@ from CONSTANTS import Point, Rectangle
 
 class Overlay(QMainWindow):
     def __init__(self):
-        print("init Overlay")
         self.app = QApplication(sys.argv)
-        super(Overlay, self).__init__()
+        super(Overlay, self).__init__()  # This has to be after QApplication(sys.argv)
+
         # Create the main window
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_NoSystemBackground, True)
@@ -25,39 +25,41 @@ class Overlay(QMainWindow):
         # Run the application
         self.showFullScreen()
 
-    def update(self, rec: Rectangle = Rectangle(Point(0, 0), Point(0, 0))):
+    def updatePaint(self, points):
+        def pointsToRec() -> Rectangle:
+            if points is not None:
+                print(points[0])
+                print(points[2])
+                return Rectangle(Point(points[0][0][0], points[0][0][1]), Point(points[2][0][0], points[2][0][1]))
+            return Rectangle(Point(0, 0), Point(0, 0))
+
+        self.itemBoarder = pointsToRec()
         self.app.processEvents()
-        self.itemBoarder = rec
+        self.update()
+
 
     def paintEvent(self, event=None):
         def drawBoarders():
             # drawing the boarder clock wise ->
             rec = self.itemBoarder
+            print("Boarder Rec: ", rec)
             painter.drawLine(rec.topLeft.x, rec.topLeft.y, rec.botRight.x, rec.topLeft.y)
             painter.drawLine(rec.botRight.x, rec.topLeft.y, rec.botRight.x, rec.botRight.y)
             painter.drawLine(rec.botRight.x, rec.botRight.y, rec.topLeft.x, rec.botRight.y)
             painter.drawLine(rec.topLeft.x, rec.botRight.y, rec.topLeft.x, rec.topLeft.y)
-
+        print("PaintEvent")
         painter = QPainter(self)
-
-        # Paining a white rectangle of white colour but making setting it's Opacity to 0 to make it trough
-        painter.setOpacity(0.0)
-        painter.setBrush(Qt.white)
-        painter.setPen(QPen(Qt.white))
-        painter.drawRect(self.rect())
-
-        # Painting Item Boarder
-        painter.setOpacity(1)
-        painter.setPen(QPen(Qt.green, 2, Qt.SolidLine))
-        drawBoarders()
-
         # Overlay Active Warning
+        painter.setOpacity(1)
         painter.setPen(QPen(Qt.red, 2, Qt.SolidLine))
         painter.setFont(QFont('Decorative', 50))
         painter.drawText(event.rect(), Qt.AlignLeft, "Overlay ACTIVE")
 
+        drawBoarders()
+
+        painter.drawLine(0, 0, 500, 500)
 
 
-    def destroy(self):
-        # TODO
-        return
+
+
+
