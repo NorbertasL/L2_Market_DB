@@ -1,10 +1,9 @@
 import sys
+
+import cv2
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
-from CONSTANTS import Point, Rectangle
-
 
 class Overlay(QMainWindow):
     def __init__(self):
@@ -20,34 +19,17 @@ class Overlay(QMainWindow):
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.X11BypassWindowManagerHint)
 
         # Defining an empty rec
-        self.itemBoarder = Rectangle(Point(0, 0), Point(0, 0))
+        self.recLines = None
 
         # Run the application
         self.showFullScreen()
 
     def updatePaint(self, points):
-        def pointsToRec() -> Rectangle:
-            if points is not None:
-                print(points[0])
-                print(points[2])
-                return Rectangle(Point(points[0][0][0], points[0][0][1]), Point(points[2][0][0], points[2][0][1]))
-            return Rectangle(Point(0, 0), Point(0, 0))
-
-        self.itemBoarder = pointsToRec()
+        self.recLines = points
         self.app.processEvents()
         self.update()
 
-
     def paintEvent(self, event=None):
-        def drawBoarders():
-            # drawing the boarder clock wise ->
-            rec = self.itemBoarder
-            print("Boarder Rec: ", rec)
-            painter.drawLine(rec.topLeft.x, rec.topLeft.y, rec.botRight.x, rec.topLeft.y)
-            painter.drawLine(rec.botRight.x, rec.topLeft.y, rec.botRight.x, rec.botRight.y)
-            painter.drawLine(rec.botRight.x, rec.botRight.y, rec.topLeft.x, rec.botRight.y)
-            painter.drawLine(rec.topLeft.x, rec.botRight.y, rec.topLeft.x, rec.topLeft.y)
-        print("PaintEvent")
         painter = QPainter(self)
         # Overlay Active Warning
         painter.setOpacity(1)
@@ -55,9 +37,19 @@ class Overlay(QMainWindow):
         painter.setFont(QFont('Decorative', 50))
         painter.drawText(event.rect(), Qt.AlignLeft, "Overlay ACTIVE")
 
-        drawBoarders()
+        if self.recLines is not None:
 
-        painter.drawLine(0, 0, 500, 500)
+            painter.setPen(QPen(Qt.green, 1, Qt.SolidLine))
+            print("RecLines:", self.recLines)
+            print("RecArea:", cv2.contourArea(self.recLines))
+            print("Array", self.recLines[3][0][0])
+            painter.drawLine(self.recLines[0][0][0], self.recLines[0][0][1], self.recLines[1][0][0], self.recLines[1][0][1])
+            painter.drawLine(self.recLines[1][0][0], self.recLines[1][0][1], self.recLines[2][0][0], self.recLines[2][0][1])
+            painter.drawLine(self.recLines[2][0][0], self.recLines[2][0][1], self.recLines[3][0][0], self.recLines[3][0][1])
+            painter.drawLine(self.recLines[3][0][0], self.recLines[3][0][1], self.recLines[0][0][0], self.recLines[0][0][1])
+
+
+
 
 
 

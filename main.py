@@ -1,7 +1,6 @@
 import main_gui
 import app_variables
 import overlay_display
-from CONSTANTS import Rectangle, Point
 
 from ParseTools import screen_scanner
 from DebugTools import debug_display
@@ -34,7 +33,8 @@ while app_variables.appRunning:
         if app_variables.isOverlayOn():
             if overlay is None:
                 overlay = overlay_display.Overlay()
-            overlay.updatePaint(data.get("targetRec"))
+            rec = data.get("targetRec")
+            overlay.updatePaint(rec)
 
         if app_variables.isDebugWindowOn():
             # Displays image in real time with boundary boxes on 2nd screen
