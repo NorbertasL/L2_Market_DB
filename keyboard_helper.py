@@ -3,7 +3,7 @@ import keyboard
 import app_variables
 import CONSTANTS
 from DebugTools import debug_log
-from ParseTools import img_capture
+from ParseTools import img_parse
 
 
 # TODO Look into implementing this to solve the game suppressing keyEvents
@@ -15,7 +15,7 @@ def on_press(keyInfo):
         print("Gathering screen data...")
         # Capturing img
         debug_log.addLog("KEYBOARD", "Capture key was pressed.")
-        img_capture.captureRawImg()
+        img_parse.captureRawImg()
     # print("YOU DISABLED CAPTURING KEY IN keyboard_helper")
 
 

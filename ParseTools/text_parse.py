@@ -8,15 +8,17 @@ from DebugTools import debug_log
 ItemData = namedtuple('ItemData', ['itemName', 'seenAs', 'price', 'quantity', 'location', 'person'])
 
 
-def parseDataFromImgs(nameImg, itemImg, ts):
+def parseDataFromImgs(nameImg, itemImg):
     # Tess extraction
     nameText = pytesseract.image_to_string(nameImg)
     itemText = pytesseract.image_to_string(itemImg)
-    debug_log.logRawTxTData(nameText, itemText, ts)
+    debug_log.logRawTxTData(nameText, itemText)
 
     # Parsing
-    parseName(nameText)
-    parseItemData(itemText)
+    name = parseName(nameText)
+    item = parseItemData(itemText)
+
+    return name, item
 
     # TODO continue process path by parsing the txt data into proper chunks
 
@@ -24,7 +26,8 @@ def parseDataFromImgs(nameImg, itemImg, ts):
 def parseName(nameText):
     nameText = nameText.splitlines()
     ItemData.person = nameText[0]
-    print("Parsed Name:", nameText[0])
+    #print("Parsed Name:", nameText[0])
+    return nameText[0]
 
 
 def parseItemData(itemText):
@@ -37,8 +40,8 @@ def parseItemData(itemText):
         line.strip()
         if priceTag in line:
             if parsePriceNumbers(line, itemText[index+1]):
-                parseItemNameAndQuantity(itemText[index-1])  # Name is above
-                return  # Breaking loop, because we got the data
+                return parseItemNameAndQuantity(itemText[index-1]), parseItemNameAndQuantity(itemText[index]), parseItemNameAndQuantity(itemText[index+1])
+                #return  # Breaking loop, because we got the data
         index += 1
 
 

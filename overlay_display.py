@@ -24,12 +24,15 @@ class Overlay(QMainWindow):
         # Run the application
         self.showFullScreen()
 
+
+
     def updatePaint(self, points):
         self.recLines = points
         self.app.processEvents()
         self.update()
 
     def paintEvent(self, event=None):
+
         painter = QPainter(self)
         # Overlay Active Warning
         painter.setOpacity(1)
@@ -47,6 +50,7 @@ class Overlay(QMainWindow):
             painter.drawLine(self.recLines[1][0][0], self.recLines[1][0][1], self.recLines[2][0][0], self.recLines[2][0][1])
             painter.drawLine(self.recLines[2][0][0], self.recLines[2][0][1], self.recLines[3][0][0], self.recLines[3][0][1])
             painter.drawLine(self.recLines[3][0][0], self.recLines[3][0][1], self.recLines[0][0][0], self.recLines[0][0][1])
+
 
 
 
