@@ -2,22 +2,32 @@ import main_gui
 import app_variables
 import overlay_display
 
-from ParseTools import screen_scanner
+from ParseTools import screen_scanner, img_parse, text_parse
 from DebugTools import debug_display
 
 app_variables.appRunning = True
 gui = main_gui.MasterGui()
 debugDisplayWindow = None
 debugDisplayWindowName = "Debug Display"
+lastRec = None
 
 # Test rectangle for overlay
 
 overlay = None
 
 
+def compareRec(rec1, rec2) -> bool:
+    # Checking two opposite corners to see if its the same rec
+    topLeftCorner = rec1[0][0][0] == rec2[0][0][0] and rec1[0][0][1] == rec2[0][0][1]
+    botRightCorner = rec1[2][0][0] == rec2[2][0][0] and rec1[2][0][1] == rec2[2][0][1]
+    return topLeftCorner and botRightCorner
+
+
 def __closeDebugWindow():
     if debugDisplayWindow is not None:
         debugDisplayWindow.destroy()
+
+
 def __closeApp():
     __closeDebugWindow()
 
@@ -41,7 +51,20 @@ while app_variables.appRunning:
             if debugDisplayWindow is None:
                 debugDisplayWindow = debug_display.Display(debugDisplayWindowName)
             # TODO draw around name box too
-            debugDisplayWindow.display(data.get("rawImage"), data.get("targetRec"))
+            debugDisplayWindow.display(data.getRawImage(), data.getRecBounds())
+
+        if data.getRecBounds() is not None:
+            if lastRec is None or not compareRec(lastRec, data.getRecBounds()):
+                lastRec = data.getRecBounds()
+                print("New Item!")
+                # Parsing img
+                croppedImgs = img_parse.cropImage(data)
+                print(text_parse.parseDataFromImgs(croppedImgs[0], croppedImgs[1]))
+
+
+
+
+
     else:
         __closeApp()
 
