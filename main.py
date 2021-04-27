@@ -1,6 +1,12 @@
+import time
+
+from PIL import Image
+
+import CONSTANTS
 import main_gui
 import app_variables
 import overlay_display
+from DebugTools.debug_log import logGreyImgData
 
 from ParseTools import screen_scanner, img_parse, text_parse
 from DebugTools import debug_display
@@ -59,10 +65,11 @@ while app_variables.appRunning:
                 print("New Item!")
                 # Parsing img
                 croppedImgs = img_parse.cropImage(data)
+
+                # Debug log
+                logGreyImgData(croppedImgs[0], croppedImgs[1])
+
                 print(text_parse.parseDataFromImgs(croppedImgs[0], croppedImgs[1]))
-
-
-
 
 
     else:
