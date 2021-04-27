@@ -33,7 +33,7 @@ def getImage() -> CONSTANTS.ImageData:
 
         # if approx is 4 its a rectangle
         if len(approx) == 4:
-            minArea = 7000
+            minArea = 5500
             area = cv2.contourArea(approx)
 
             # Area of rectangle has to be bigger than the minArea
