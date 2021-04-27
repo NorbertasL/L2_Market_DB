@@ -7,8 +7,10 @@ from PIL import Image
 import CONSTANTS
 
 
-def logRawImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
+def logRawImgData(nameImg, itemImg, ts=None):
     if CONSTANTS.RAW_IMG_DATA:
+        if ts is None:
+            ts = calendar.timegm(time.gmtime())
         dirCheck(CONSTANTS.TESS_DEBUG_DIR_RAW_IMG)
         # Saving raw img data
         print("Saving RAW imgs")
@@ -20,8 +22,10 @@ def logRawImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
         addLog("TESSERACT", "Created " + nameImgName, ts)
 
 
-def logGreyImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
+def logGreyImgData(nameImg, itemImg, ts=None):
     if CONSTANTS.GREY_IMG_DATA:
+        if ts is None:
+            ts = calendar.timegm(time.gmtime())
         dirCheck(CONSTANTS.TESS_DEBUG_DIR_GREY_IMG)
         # Saving grey img data
         print("Saving grey imgs")
@@ -37,8 +41,10 @@ def logGreyImgData(nameImg, itemImg, ts=calendar.timegm(time.gmtime())):
         addLog("TESSERACT", "Created " + nameImgName, ts)
 
 
-def logRawTxTData(nameTxt, itemTxt, ts=calendar.timegm(time.gmtime())):
+def logRawTxTData(nameTxt, itemTxt, ts=None):
     if CONSTANTS.RAW_TXT_DATA:
+        if ts is None:
+            ts = calendar.timegm(time.gmtime())
         dirCheck(CONSTANTS.TESS_DEBUG_DIR_RAW_TXT)
         print("Saving raw txt data")
 
@@ -55,8 +61,10 @@ def logRawTxTData(nameTxt, itemTxt, ts=calendar.timegm(time.gmtime())):
         addLog("TESSERACT", "Created " + itemTxtName, ts)
 
 
-def addLog(logType="UNNAMED", message="NO_MESSAGE", ts=calendar.timegm(time.gmtime())):
+def addLog(logType="UNNAMED", message="NO_MESSAGE", ts=None):
     if CONSTANTS.LOG:
+        if ts is None:
+            ts = calendar.timegm(time.gmtime())
         dirCheck(CONSTANTS.LOGFILE_DIR)
         print("logging data into log file")
         log = open(CONSTANTS.LOGFILE_PATH, 'a')
