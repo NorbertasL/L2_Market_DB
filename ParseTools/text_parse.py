@@ -12,13 +12,12 @@ def parseDataFromImgs(nameImg, itemImg):
     # Tess extraction
     nameText = pytesseract.image_to_string(nameImg)
     itemText = pytesseract.image_to_string(itemImg)
-    debug_log.logRawTxTData(nameText, itemText)
 
     # Parsing
     name = parseName(nameText)
-    item = parseItemData(itemText)
+    itemName, itemQuantity, price = parseItemData(itemText)
 
-    return name, item
+    return name, itemName, itemQuantity, price
 
     # TODO continue process path by parsing the txt data into proper chunks
 
@@ -26,7 +25,6 @@ def parseDataFromImgs(nameImg, itemImg):
 def parseName(nameText):
     nameText = nameText.splitlines()
     ItemData.person = nameText[0]
-    #print("Parsed Name:", nameText[0])
     return nameText[0]
 
 
@@ -34,7 +32,17 @@ def parseItemData(itemText):
     priceTag = "price"
     itemText = itemText.splitlines()
     index = 0
-    print("Item Text is:", itemText)
+    for line in itemText:
+        line = line.lower()
+        line = line.strip()
+
+        if priceTag in line:
+            itemName, itemQuantity = parseItemNameAndQuantity(itemText[index-1])
+            price = parsePriceNumbers(line)
+            return itemName, itemQuantity, price
+        index += 1
+
+    '''
     for line in itemText:
         line.lower()
         line.strip()
@@ -43,21 +51,29 @@ def parseItemData(itemText):
                 return parseItemNameAndQuantity(itemText[index-1]), parseItemNameAndQuantity(itemText[index]), parseItemNameAndQuantity(itemText[index+1])
                 #return  # Breaking loop, because we got the data
         index += 1
+        '''
 
 
-def parsePriceNumbers(line, nextLine):
-    # TODO Extract number
-    # TODO check number value with next line that should also be a price but with words
-    number = re.sub(r'[^a-zA-Z0-9]', "", line)
-    print(number)
-
-    # return true if number was extracted
-    return False
+def parsePriceNumbers(line):
+    # Extracting just the number
+    return re.sub(r'[^0-9]', "", line)
 
 
-def parseItemNameAndQuantity():
-    # TODO extract name and quantity of exists
-    return
+def parseItemNameAndQuantity(line):
+    line = line.lower()
+    line = line.strip()
+    line = re.sub(r'[^ a-z0-9():\']', "", line)
+
+    index = line.find("(")
+    if index != -1:
+        quantity = line[index:]
+        quantity = re.sub(r'[^0-9]', "", quantity)
+        name = line[:index]
+    else:
+        name = line
+        quantity = -1
+
+    return name, quantity
 
 
 """ The way Im gona parrse the data is
