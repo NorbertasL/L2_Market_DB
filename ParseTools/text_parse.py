@@ -25,7 +25,7 @@ def parseDataFromImgs(nameImg, itemImg):
 def parseName(nameText):
     nameText = nameText.splitlines()
     ItemData.person = nameText[0]
-    return nameText[0]
+    return nameText[0].strip()
 
 
 def parseItemData(itemText):
@@ -73,7 +73,8 @@ def parseItemNameAndQuantity(line):
         name = line
         quantity = -1
 
-    return name, quantity
+    name = name.replace("'", "")
+    return name.strip(), quantity
 
 
 """ The way Im gona parrse the data is
