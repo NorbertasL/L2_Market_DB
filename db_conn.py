@@ -49,6 +49,16 @@ def addNewItemName(name, itemId=-1):
         return e
     return name, " added"
 
+def checkItemNameExists(name):
+    try:
+        command = "SELECT [name] from {tableName} WHERE [name] IS '{itemName}'"\
+            .format(tableName=ITEM_NAME_LIST_TABLE_NAME, itemName=name)
+        cursor.execute(command)
+        return len(cursor.fetchall()) > 0
+    except sqlite3.Error as e:
+        print("ERROR_LOCAL_DB", e)
+        debug_log.addLog("ERROR_LOCAL_DB" + str(e))
+
 
 def addSeenItem(name, seenAs, price, quantity, location, person):
     ts = calendar.timegm(time.gmtime())

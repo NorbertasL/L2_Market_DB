@@ -24,7 +24,7 @@ def cropImage(imgData: CONSTANTS.ImageData):
 def simplifyImg(img):
     # inverting black and white, because tess works better with dark  text on light background
     tempImg = cv2.bitwise_not(img)
-    tempImg[tempImg > 100] = 255  # removed all the noise and shadows
+    tempImg[tempImg > 110] = 255  # removed all the noise and shadows
     tempImg[tempImg != 255] = 0   # converts all the pixels that are not white to black
 
     return tempImg

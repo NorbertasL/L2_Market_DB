@@ -3,6 +3,7 @@ import time
 from PIL import Image
 
 import CONSTANTS
+import db_conn
 import main_gui
 import app_variables
 import overlay_display
@@ -69,7 +70,15 @@ while app_variables.appRunning:
                 # Debug log
                 logGreyImgData(croppedImgs[0], croppedImgs[1])
 
-                print(text_parse.parseDataFromImgs(croppedImgs[0], croppedImgs[1]))
+                itemData = (text_parse.parseDataFromImgs(croppedImgs[0], croppedImgs[1]))
+                print(itemData)
+                # Checking if item name exists in DB
+                if not db_conn.checkItemNameExists(itemData[1]):
+                    print("Unseen item:", itemData[1])
+                    db_conn.addNewItemName(itemData[1])
+                else:
+                    print("Item:", itemData[1], " - is in the DB")
+
 
 
     else:

@@ -17,7 +17,7 @@ NAME_BOX_SIZE = (115, 17)
 LOG = True
 LOG_NAME = "L2_Market_DB_Log.txt"
 LOGFILE_PATH = LOGFILE_DIR + '/' + LOG_NAME
-GREY_IMG_DATA = True
+GREY_IMG_DATA = False
 PARSED_TXT_DATA = False
 
 
