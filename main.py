@@ -75,7 +75,8 @@ while app_variables.appRunning:
                 # Checking if item name exists in DB
                 if not db_conn.checkItemNameExists(itemData[1]):
                     print("Unseen item:", itemData[1])
-                    db_conn.addNewItemName(itemData[1])
+                    #db_conn.addNewItemName(itemData[1])
+                    gui.openIsThisNewItemWindow(itemData, croppedImgs)
                 else:
                     print("Item:", itemData[1], " - is in the DB")
 

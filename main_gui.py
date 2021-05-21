@@ -4,8 +4,11 @@ from tkinter import ttk
 from datetime import datetime
 
 # Personal libraries
+from tkinter.messagebox import askyesno
+
 import app_variables
 import db_conn
+from DebugTools.debug_log import logGreyImgData
 from keyboard_helper import KeyListener
 
 
@@ -201,6 +204,58 @@ class MasterGui:
         # calling updateList() after window setup to populate the list view
         updateList()
 
+    @staticmethod
+    def openIsThisNewItemWindow(itemData, croppedImgs):
+        window = tkinter.Toplevel()
+        window.wm_attributes("-topmost", 1)
+        window.title("Is This New?")
+        window.geometry("500x500")
+
+        itemNameText = tkinter.StringVar()
+        name_label = tkinter.Label(window, text="Name:", font=('bold', 14), pady=20)
+        name_label.grid(row=0, column=0, sticky='W')
+        name_entry = tkinter.Entry(window, textvariable=itemNameText)
+        itemNameText.set(itemData[1])
+        name_entry.grid(row=0, column=1, sticky='W', padx=20)
+
+        sellerNameText = tkinter.StringVar()
+        seller_label = tkinter.Label(window, text="seller Name:", font=('bold', 14), pady=20)
+        seller_label.grid(row=1, column=0, sticky='W')
+        seller_entry = tkinter.Entry(window, textvariable=sellerNameText)
+        sellerNameText.set(itemData[0])
+        seller_entry.grid(row=1, column=1, sticky='W', padx=20)
+
+        priceText = tkinter.StringVar()
+        price_label = tkinter.Label(window, text="pricee:", font=('bold', 14), pady=20)
+        price_label.grid(row=2, column=0, sticky='W')
+        price_entry = tkinter.Entry(window, textvariable=priceText)
+        priceText.set(itemData[3])
+        price_entry.grid(row=2, column=1, sticky='W', padx=20)
+
+        quantityText = tkinter.StringVar()
+        quantity_label = tkinter.Label(window, text="Quantity:", font=('bold', 14), pady=20)
+        quantity_label.grid(row=2, column=2, sticky='W')
+        quantity_entry = tkinter.Entry(window, textvariable=quantityText)
+        quantityText.set(itemData[2])
+        quantity_entry.grid(row=2, column=3, sticky='W', padx=20)
+
+        addBtn = tkinter.Button(window, text="Add New Item",
+                                command=lambda: addNewItem(itemNameText.get()))
+        addBtn.grid(row=3, column=0)
+
+        addBtn = tkinter.Button(window, text="Save Debug",
+                                command=lambda: saveDebug())
+        addBtn.grid(row=3, column=1)
+
+        def saveDebug():
+            logGreyImgData(croppedImgs[0], croppedImgs[1], force=True)
+
+
+
+
+
+
+
 class ItemListGui:
     def __init__(self):
         print("item GUI")
@@ -211,8 +266,7 @@ class ItemListGui:
 
     @staticmethod  # static for now
     def __setUpItemGui(itemListWindow):
-        def addNewItem(name, itemId):
-            db_conn.addNewItemName(name, itemId)
+
         itemNameText = tkinter.StringVar()
         mat_name_label = tkinter.Label(itemListWindow, text="Name:", font=('bold', 14), pady=20)
         mat_name_label.grid(row=0, column=0, sticky='W')
@@ -228,3 +282,6 @@ class ItemListGui:
         addBtn = tkinter.Button(itemListWindow, text="Add",
                                 command=lambda: addNewItem(itemNameText.get(), itemIdText.get()))
         addBtn.grid(row=1, column=0)
+
+def addNewItem(name, itemId):
+    db_conn.addNewItemName(name, itemId)

@@ -22,8 +22,8 @@ def logRawImgData(nameImg, itemImg, ts=None):
         addLog("TESSERACT", "Created " + nameImgName, ts)
 
 
-def logGreyImgData(nameImg, itemImg, ts=None):
-    if CONSTANTS.GREY_IMG_DATA:
+def logGreyImgData(nameImg, itemImg, ts=None, force=False):
+    if CONSTANTS.GREY_IMG_DATA or force:
         if ts is None:
             ts = calendar.timegm(time.gmtime())
         dirCheck(CONSTANTS.TESS_DEBUG_DIR_GREY_IMG)
