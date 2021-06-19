@@ -2,9 +2,12 @@ import sqlite3
 import calendar
 import time
 
+import CONSTANTS
 from DebugTools import debug_log
 
-connection = sqlite3.connect("L2RebornMarket.db")
+
+connection = sqlite3.connect(CONSTANTS.ROOT_DIR+"\L2RebornMarket.db")
+print(connection)
 cursor = connection.cursor()
 
 SEEN_PRICE_TABLE_NAME = "SeenItemPrices"
@@ -27,7 +30,6 @@ itemNameListTable = """
 CREATE TABLE IF NOT EXISTS "%s" (
 "_id"	INTEGER NOT NULL UNIQUE,
 "name"	TEXT NOT NULL UNIQUE,
-"itemId"	INTEGER,
 PRIMARY KEY("_id" AUTOINCREMENT)
 );
 """ % ITEM_NAME_LIST_TABLE_NAME
@@ -38,14 +40,15 @@ cursor.execute(itemNameListTable)
 # itemNameListTable functions
 def addNewItemName(name, itemId=-1):
     try:
-        command = """INSERT INTO %s (name, itemId)
+        name = name.replace("'", "")
+        command = """INSERT INTO %s (name, _id)
         VALUES ('%s', %d)""" % (ITEM_NAME_LIST_TABLE_NAME, name, itemId)
         cursor.execute(command)
         connection.commit()
-        debug_log.addLog("LOCAL_DB", "New item NAME added " + name + " to " + ITEM_NAME_LIST_TABLE_NAME)
+        #debug_log.addLog("LOCAL_DB", "New item NAME added " + name + " to " + ITEM_NAME_LIST_TABLE_NAME)
     except sqlite3.IntegrityError as e:
         print(e)
-        debug_log.addLog("ERROR_LOCAL_DB" + e)
+        debug_log.addLog("ERROR_LOCAL_DB " + str(e))
         return e
     return name, " added"
 

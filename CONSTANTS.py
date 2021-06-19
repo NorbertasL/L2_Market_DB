@@ -3,8 +3,12 @@ from collections import namedtuple
 from dataclasses import dataclass
 
 import numpy
+import os
+import sys
 
-DEBUG_DIR = 'DEBUG'
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+DEBUG_DIR = ROOT_DIR+'/DEBUG'
 LOGFILE_DIR = DEBUG_DIR + '/LOGS'
 TESS_DEBUG_DIR_GREY_IMG = DEBUG_DIR + '/TESS/GREY_IMG'  # Grey scale
 TESS_DEBUG_DIR_PARSED_TXT = DEBUG_DIR + '/TESS/PARSED_TXT'

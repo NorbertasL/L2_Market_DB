@@ -1,9 +1,7 @@
 import calendar
 import os
 import time
-
 from PIL import Image
-
 import CONSTANTS
 
 
