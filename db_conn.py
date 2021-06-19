@@ -53,8 +53,9 @@ def addNewItemName(name, itemId=-1):
     return name, " added"
 
 def checkItemNameExists(name):
+    name = name.lower()
     try:
-        command = "SELECT [name] from {tableName} WHERE [name] IS '{itemName}'"\
+        command = "SELECT [name] from {tableName} WHERE [name] LIKE '{itemName}'"\
             .format(tableName=ITEM_NAME_LIST_TABLE_NAME, itemName=name)
         cursor.execute(command)
         return len(cursor.fetchall()) > 0

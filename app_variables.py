@@ -15,7 +15,7 @@ def isOverlayOn():
     return __isOverlayOn and gatherDataOn
 
 
-__isDebugWindowOn = False
+__isDebugWindowOn = True
 def isDebugWindowOn():
     # I only want to display the window if we are gathering data or it will be blank
     return __isDebugWindowOn and gatherDataOn
