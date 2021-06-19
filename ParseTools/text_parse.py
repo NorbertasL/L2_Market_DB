@@ -5,7 +5,7 @@ from pytesseract import pytesseract
 
 from DebugTools import debug_log
 
-ItemData = namedtuple('ItemData', ['itemName', 'seenAs', 'price', 'quantity', 'location', 'person'])
+#ItemData = namedtuple('ItemData', ['itemName', 'seenAs', 'price', 'quantity', 'location', 'person'])
 
 
 def parseDataFromImgs(nameImg, itemImg):
@@ -15,16 +15,16 @@ def parseDataFromImgs(nameImg, itemImg):
 
     # Parsing
     name = parseName(nameText)
-    itemName, itemQuantity, price = parseItemData(itemText)
+    itemName, itemQuantity, price, seenAs = parseItemData(itemText)
 
-    return name, itemName, itemQuantity, price
+    return name, itemName, itemQuantity, price, seenAs
 
     # TODO continue process path by parsing the txt data into proper chunks
 
 
 def parseName(nameText):
     nameText = nameText.splitlines()
-    ItemData.person = nameText[0]
+    #ItemData.person = nameText[0]
     return nameText[0].strip()
 
 
@@ -37,9 +37,13 @@ def parseItemData(itemText):
         line = line.strip()
 
         if priceTag in line:
+            seenAs = "S" # selling
+            if "for each" in line:
+                seenAs = "B" #buying
+
             itemName, itemQuantity = parseItemNameAndQuantity(itemText[index-1])
             price = parsePriceNumbers(line)
-            return itemName, itemQuantity, price
+            return itemName, itemQuantity, price, seenAs
         index += 1
 
     '''
@@ -62,16 +66,20 @@ def parsePriceNumbers(line):
 def parseItemNameAndQuantity(line):
     line = line.lower()
     line = line.strip()
-    line = re.sub(r'[^ a-z0-9():\']', "", line)
+    line = re.sub(r'[^ a-z0-9()%:\']', "", line)
 
+    # TODO some items have ( in their name!
     index = line.find("(")
+    lineSub = line[index+1:-1]
+    if not lineSub.isnumeric():
+        index = lineSub[index:].find("(")
     if index != -1:
         quantity = line[index:]
         quantity = re.sub(r'[^0-9]', "", quantity)
         name = line[:index]
     else:
         name = line
-        quantity = -1
+        quantity = 1  # no quantity indicator means it a single item
 
     name = name.replace("'", "")
     return name.strip(), quantity

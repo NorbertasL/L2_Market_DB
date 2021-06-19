@@ -219,14 +219,21 @@ class MasterGui:
         name_entry.grid(row=0, column=1, sticky='W', padx=20)
 
         sellerNameText = tkinter.StringVar()
-        seller_label = tkinter.Label(window, text="seller Name:", font=('bold', 14), pady=20)
+        seller_label = tkinter.Label(window, text="Seller Name:", font=('bold', 14), pady=20)
         seller_label.grid(row=1, column=0, sticky='W')
         seller_entry = tkinter.Entry(window, textvariable=sellerNameText)
         sellerNameText.set(itemData[0])
         seller_entry.grid(row=1, column=1, sticky='W', padx=20)
 
+        seenAsText = tkinter.StringVar()
+        seenAs_label = tkinter.Label(window, text="Seen As:", font=('bold', 14), pady=20)
+        seenAs_label.grid(row=1, column=2, sticky='W')
+        seenAs_entry = tkinter.Entry(window, textvariable=seenAsText)
+        seenAsText.set(itemData[4])
+        seenAs_entry.grid(row=1, column=3, sticky='W', padx=20)
+
         priceText = tkinter.StringVar()
-        price_label = tkinter.Label(window, text="pricee:", font=('bold', 14), pady=20)
+        price_label = tkinter.Label(window, text="price:", font=('bold', 14), pady=20)
         price_label.grid(row=2, column=0, sticky='W')
         price_entry = tkinter.Entry(window, textvariable=priceText)
         priceText.set(itemData[3])
